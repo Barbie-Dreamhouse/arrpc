@@ -43,6 +43,10 @@ export default class ProcessServer {
         toCompare.push(p.replace('x64', ''));
       }
 
+      for (const name of toCompare.slice()) {
+        log('name: ', name);
+      }
+
       for (const { executables, id, name } of DetectableDB) {
         if (executables?.some(x => {
           if (x.is_launcher) return false;
@@ -58,7 +62,7 @@ export default class ProcessServer {
             log('detected game!', name);
             timestamps[id] = Date.now();
           }
-          
+
           // Resending this on evry scan is intentional, so that in the case that arRPC scans processes before Discord, existing activities will be sent
           this.handlers.message({
             socketId: id
@@ -83,7 +87,7 @@ export default class ProcessServer {
       if (!ids.includes(id)) {
         log('lost game!', names[id]);
         delete timestamps[id];
-        
+
         this.handlers.message({
           socketId: id
         }, {
