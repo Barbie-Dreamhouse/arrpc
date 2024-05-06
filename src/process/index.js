@@ -48,10 +48,6 @@ export default class ProcessServer {
         toCompare.push(p.replace('x64', ''));
       }
 
-      for (const name of toCompare.slice()) {
-        log('name: ', name);
-      }
-
       for (const { executables, id, name } of DetectableDB) {
         if (executables?.some(x => {
           if (x.is_launcher) return false;
